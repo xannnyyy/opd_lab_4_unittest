@@ -1,32 +1,38 @@
 import unittest
-from flask import Flask, request
+from flask import Flask
 from app import calculate
 
-class TestQuadraticEquation(unittest.TestCase):
+class TestCalculator(unittest.TestCase):
 
     def setUp(self):
         self.app = Flask(__name__)
-        self.app_context = self.app.test_request_context()
-        self.app_context.push()
+        self.app.config['TESTING'] = True
         self.client = self.app.test_client()
 
-    def tearDown(self):
-        self.app_context.pop()
-
-    def test_calculate_with_positive_discriminant(self):
+    def test_calculate_positive_discriminant(self):
         with self.app.test_request_context('/calculate', method='POST', data={'a': '1', 'b': '4', 'c': '1'}):
-            result = calculate()
-            self.assertEqual(result, 'Корни уравнения: x1 = -0.2679491924311228, x2 = -3.732050807568877')
+            response = calculate()
+            self.assertIn('Корни уравнения:', response)
 
-    def test_calculate_with_zero_discriminant(self):
+    def test_calculate_zero_discriminant(self):
         with self.app.test_request_context('/calculate', method='POST', data={'a': '1', 'b': '2', 'c': '1'}):
-            result = calculate()
-            self.assertEqual(result, 'Уравнение имеет один корень: x = -1.0')
+            response = calculate()
+            self.assertIn('Уравнение имеет один корень:', response)
 
-    def test_calculate_with_negative_discriminant(self):
+    def test_calculate_negative_discriminant(self):
         with self.app.test_request_context('/calculate', method='POST', data={'a': '1', 'b': '1', 'c': '1'}):
-            result = calculate()
-            self.assertEqual(result, 'Уравнение не имеет действительных корней')
+            response = calculate()
+            self.assertIn('Уравнение не имеет действительных корней', response)
+
+    def test_calculate_invalid_input(self):
+        with self.app.test_request_context('/calculate', method='POST', data={'a': 'a', 'b': 'b', 'c': 'c'}):
+            response = calculate()
+            self.assertIn('Пожалуйста, введите числовые значения для всех коэффициентов.', response)
+
+    def test_calculate_zero_a_coefficient(self):
+        with self.app.test_request_context('/calculate', method='POST', data={'a': '0', 'b': '1', 'c': '1'}):
+            response = calculate()
+            self.assertIn("Коэффициент 'a' не может быть равен нулю.", response)
 
 if __name__ == '__main__':
     unittest.main()

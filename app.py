@@ -8,9 +8,15 @@ def index():
 
 @app.route('/calculate', methods=['POST'])
 def calculate():
-    a = float(request.form['a'])
-    b = float(request.form['b'])
-    c = float(request.form['c'])
+    try:
+        a = float(request.form['a'])
+        b = float(request.form['b'])
+        c = float(request.form['c'])
+
+        if a == 0:
+            return "Коэффициент 'a' не может быть равен нулю."
+    except ValueError:
+        return "Пожалуйста, введите числовые значения для всех коэффициентов."
 
     discriminant = b**2 - 4*a*c
 
