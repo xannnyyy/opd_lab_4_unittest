@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Калькулятор квадратного уравнения</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            text-align: center;
+        }
+        label {
+            display: inline-block;
+            width: 40px;
+            text-align: right;
+            margin-right: 10px;
+        }
+        input[type="number"] {
+            width: 150px;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #result {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+        }
+        /* Новые стили для вкладки "Информация об авторе" */
+        .author-info {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .author-info h2 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .author-info p {
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Калькулятор квадратного уравнения</h1>
+    <form action="/calculate" method="post">
+        <label for="a">a:</label>
+        <input type="number" name="a" step="any"><br><br>
+        <label for="b">b:</label>
+        <input type="number" name="b" step="any"><br><br>
+        <label for="c">c:</label>
+        <input type="number" name="c" step="any"><br><br>
+        <button type="submit">Найти корни</button>
+    </form>
+    <div id="result"></div>
+</div>
+
+<div class="author-info">
+    <h2>Информация об авторе</h2>
+    <p>Романов Степан Станиславович</p>
+    <p>ОмГТУ // ФИТиКС // ИВТ-234</p>
+</div>
+</body>
+</html>
